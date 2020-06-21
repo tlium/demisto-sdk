@@ -1,4 +1,5 @@
 # Changelog
+-
 
 #### 1.1.3
 * Added a validation for invalid id fields in indicators types files in **validate** command.
