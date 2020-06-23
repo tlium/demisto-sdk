@@ -55,7 +55,6 @@ jobs:
                 demisto-sdk validate -i Packs/dnstwist
                 exit 0
               fi
-
               if [ -n "${CONTENT_BRANCH_NAME}" ]; then
                 git checkout ${CONTENT_BRANCH_NAME}
               fi
