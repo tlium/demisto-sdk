@@ -11,6 +11,8 @@ base_credentials = """
 """
 base_basic_auth = """(username, password)"""
 base_token = """headers['Authorization'] = f'{params["api_key"]}'"""
+
+# TODO: fix spaces
 base_function = """def $FUNCTIONNAME$_command(client, args):
     $ARGUMENTS$
 

@@ -99,6 +99,7 @@ class OpenAPIIntegration:
 
         for path, function in self.json['paths'].items():
             try:
+                # TODO: method in {POST, GET, PUT, DELETE}
                 for method, data in function.items():
                     if not data:
                         continue
@@ -291,6 +292,7 @@ class OpenAPIIntegration:
         command['path'] = f"f{command['path']}" if "{" in command['path'] else command['path']
         for param in re.findall(r'{([^}]+)}', command['path']):  # get content inside curly brackets
             if param in ILLEGAL_CODE_NAMES:
+                # TODO: this replaces all the words with illegal names - for example: widgets -> wid_gets
                 command['path'] = command['path'].replace(param, f'{param}{NAME_FIX}')
         req_function = req_function.replace('$PATH$', command['path'])
         if params_data:
@@ -370,6 +372,7 @@ class OpenAPIIntegration:
             arg_type = arg.get('type')
             arg_props = []
             if arg.get('ref'):
+                # TODO: custom prefix?
                 ref_arg_name = f'{arg["ref"]}_{ref_arg_name}'.lower()
                 code_arg_name = f'{arg["ref"]}_{code_arg_name}'.lower()
             if code_arg_name in ILLEGAL_CODE_NAMES:
@@ -377,8 +380,10 @@ class OpenAPIIntegration:
             if arg['properties']:
                 for k, v in arg['properties'].items():
                     prop_default = self.get_arg_default(v)
+                    # TODO: custom prefix?
                     prop_arg_name = f'{code_arg_name}_{k}'.lower()
                     prop_arg_type = ARGUMENT_TYPES.get(v.get('type', 'string'), 'str')
+                    # TODO: argToInt (float?)
                     if prop_arg_type == 'bool':
                         prop_arg_type = 'argToBoolean'
                     if prop_arg_name in ILLEGAL_CODE_NAMES:
@@ -402,6 +407,7 @@ class OpenAPIIntegration:
                 else:
                     argument_default = self.get_arg_default(arg)
                     new_arg_type = ARGUMENT_TYPES.get(arg['type'], 'str')
+                    # TODO: argToInt (float?)
                     if new_arg_type == 'bool':
                         new_arg_type = 'argToBoolean'
 
